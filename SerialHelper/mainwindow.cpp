@@ -128,7 +128,11 @@ void MainWindow::on_pushButtonopen_clicked()
     }
     else
     {
+#ifdef Q_OS_WIN
+        port->setPortName(ui->comboBoxserial->currentText());
+#else
         port->setPortName("/dev/"+ui->comboBoxserial->currentText());
+#endif
         port->setBaudRate(ui->comboBoxbute->currentText().toInt());
         port->setDataBits(getbit(ui->spinBox->value()));
         if(port->open(QIODevice::ReadWrite))
